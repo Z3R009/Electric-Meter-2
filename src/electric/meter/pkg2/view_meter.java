@@ -4,13 +4,22 @@
  */
 package electric.meter.pkg2;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author zh4rk
  */
 public class view_meter extends javax.swing.JFrame {
+    
+    Connection conn;
+    PreparedStatement pst;
+    ResultSet rs;
 
     /**
      * Creates new form view_meter
@@ -36,7 +45,7 @@ public class view_meter extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        meter_reading = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -44,6 +53,11 @@ public class view_meter extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -84,7 +98,7 @@ public class view_meter extends javax.swing.JFrame {
         });
         jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 210, 40));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        meter_reading.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -110,7 +124,7 @@ public class view_meter extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(meter_reading);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 650, 360));
 
@@ -206,6 +220,11 @@ public class view_meter extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton7MouseClicked
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        conn=DBConnection.getConnection();
+        view_reading();
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -254,6 +273,37 @@ public class view_meter extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable meter_reading;
     // End of variables declaration//GEN-END:variables
+
+    private void view_reading() {
+    try {
+        String sql = "SELECT DATE_FORMAT(mr.reading_date, '%M %d, %Y') AS formatted_date, " +
+                     "c.customer_name, mr.consumption, mr.kWh, mr.total " +
+                     "FROM meter_reading mr " +
+                     "JOIN customer c ON mr.customer_id = c.customer_id";
+
+        pst = conn.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+
+        DefaultTableModel dtm = (DefaultTableModel) meter_reading.getModel();
+        dtm.setRowCount(0);
+
+        while (rs.next()) {
+            Object o[] = {
+                rs.getString("formatted_date"),
+                rs.getString("customer_name"),
+                rs.getString("consumption"),
+                rs.getString("kWh"),
+                rs.getString("total")
+            };
+            dtm.addRow(o);
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, ex);
+    }
+}
+
+
 }

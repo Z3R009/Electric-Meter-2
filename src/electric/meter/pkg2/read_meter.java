@@ -46,13 +46,13 @@ public class read_meter extends javax.swing.JFrame {
         customer_id = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        customer_list = new javax.swing.JComboBox<>();
+        customer_name = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        consumption = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        kWh = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        total = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
@@ -110,66 +110,81 @@ public class read_meter extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jButton1.setText("SAVE");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, 220, 40));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 200, 220, 40));
 
-        customer_list.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        customer_list.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        customer_list.addItemListener(new java.awt.event.ItemListener() {
+        customer_name.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        customer_name.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Customer" }));
+        customer_name.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                customer_listItemStateChanged(evt);
+                customer_nameItemStateChanged(evt);
             }
         });
-        jPanel2.add(customer_list, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 220, 40));
+        jPanel2.add(customer_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 220, 40));
 
         jLabel5.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel5.setText("Customer Name");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
 
-        jTextField2.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        consumption.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        consumption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                consumptionActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 220, 40));
+        jPanel2.add(consumption, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 220, 40));
 
         jLabel6.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel6.setText("kWh");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, -1, -1));
 
-        jTextField3.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        kWh.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        kWh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                kWhActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 220, 40));
+        kWh.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                kWhKeyReleased(evt);
+            }
+        });
+        jPanel2.add(kWh, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 220, 40));
 
         jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel7.setText("Total");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, -1, -1));
 
-        jTextField4.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        total.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        total.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                totalActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 220, 40));
+        jPanel2.add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 220, 40));
 
         jButton2.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jButton2.setText("CLEAR");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 200, 220, 40));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, 220, 40));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 670, 480));
 
@@ -233,17 +248,17 @@ public class read_meter extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void consumptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consumptionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_consumptionActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void kWhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kWhActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_kWhActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_totalActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -279,14 +294,34 @@ public class read_meter extends javax.swing.JFrame {
         retrieve_customer_list();
     }//GEN-LAST:event_formWindowOpened
 
-    private void customer_listItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_customer_listItemStateChanged
+    private void customer_nameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_customer_nameItemStateChanged
         getCustomerID();
 //        if (customer_list.getSelectedIndex() == 0) {
 //    customer_list.setSelectedIndex(-1); // unselect
 //    return;
 //}
 
-    }//GEN-LAST:event_customer_listItemStateChanged
+    }//GEN-LAST:event_customer_nameItemStateChanged
+
+    private void kWhKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kWhKeyReleased
+                
+double number1 = consumption.getText().isEmpty() ? 0 : Double.parseDouble(consumption.getText());
+double number2 = kWh.getText().isEmpty() ? 0 : Double.parseDouble(kWh.getText());
+double prod = number1 * number2;
+
+total.setText(String.format("%.2f", prod));
+
+            
+    }//GEN-LAST:event_kWhKeyReleased
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        record_reading();
+        clear();
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        clear();
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -324,8 +359,9 @@ public class read_meter extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField consumption;
     private javax.swing.JTextField customer_id;
-    private javax.swing.JComboBox<String> customer_list;
+    private javax.swing.JComboBox<String> customer_name;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
@@ -342,26 +378,25 @@ public class read_meter extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField kWh;
+    private javax.swing.JTextField total;
     // End of variables declaration//GEN-END:variables
 
 private void retrieve_customer_list() {
     try {
-        customer_list.removeAllItems();  // clear items first
+        customer_name.removeAllItems();  // clear items first
 
-        customer_list.addItem("Select Customer");  // <-- default option
+        customer_name.addItem("Select Customer");  // <-- default option
 
         String sql = "SELECT customer_name FROM customer";
         PreparedStatement pst = conn.prepareStatement(sql);
         ResultSet rs = pst.executeQuery();
 
         while (rs.next()) {
-            customer_list.addItem(rs.getString("customer_name"));
+            customer_name.addItem(rs.getString("customer_name"));
         }
 
-        customer_list.setSelectedIndex(0);  // always show the default text
+        customer_name.setSelectedIndex(0);  // always show the default text
 
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, e);
@@ -371,7 +406,7 @@ private void retrieve_customer_list() {
 
 private void getCustomerID() {
 
-    Object selected = customer_list.getSelectedItem();
+    Object selected = customer_name.getSelectedItem();
 
     // Prevent null error
     if (selected == null) {
@@ -400,6 +435,37 @@ private void getCustomerID() {
     }
 }
 
-
+private void record_reading() {
     
+    try{
+        
+        java.sql.Statement stm;
+        stm = conn.createStatement();
+        java.sql.ResultSet rs;
+        rs = stm.executeQuery("SELECT * FROM meter_reading WHERE  customer_id = '" + customer_id.getText() + "'");
+        
+        
+            String sql = "INSERT INTO meter_reading(customer_id, consumption, kWh, total) VALUE (?, ?, ?, ?)";
+        pst = conn.prepareStatement(sql);
+        pst.setString(1,customer_id.getText());
+        pst.setString(2,consumption.getText());
+        pst.setString(3,kWh.getText());
+        pst.setString(4,total.getText());
+        pst.execute();
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e);
+    }
+    
+}
+
+private void clear(){
+    customer_id.setText("");
+    customer_name.setSelectedIndex(0);
+    consumption.setText("");
+    kWh.setText("");
+    total.setText("");
+
+}
+
 }
