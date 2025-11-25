@@ -25,6 +25,8 @@ public class read_meter extends javax.swing.JFrame {
     public read_meter() {
         initComponents();
         
+         customer_id.setVisible(false);
+        
 //        retrieve_customer_list();
     }
 
@@ -43,7 +45,6 @@ public class read_meter extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        customer_id = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         customer_name = new javax.swing.JComboBox<>();
@@ -58,6 +59,7 @@ public class read_meter extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        customer_id = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -97,16 +99,9 @@ public class read_meter extends javax.swing.JFrame {
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 50));
 
-        customer_id.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                customer_idActionPerformed(evt);
-            }
-        });
-        jPanel2.add(customer_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 220, 40));
-
         jLabel3.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel3.setText("Consumption");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, -1));
 
         jButton1.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jButton1.setText("SAVE");
@@ -129,11 +124,11 @@ public class read_meter extends javax.swing.JFrame {
                 customer_nameItemStateChanged(evt);
             }
         });
-        jPanel2.add(customer_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 220, 40));
+        jPanel2.add(customer_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 220, 40));
 
         jLabel5.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel5.setText("Customer Name");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, -1));
 
         consumption.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         consumption.addActionListener(new java.awt.event.ActionListener() {
@@ -141,11 +136,11 @@ public class read_meter extends javax.swing.JFrame {
                 consumptionActionPerformed(evt);
             }
         });
-        jPanel2.add(consumption, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 220, 40));
+        jPanel2.add(consumption, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 220, 40));
 
         jLabel6.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel6.setText("kWh");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, -1, -1));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, -1, -1));
 
         kWh.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         kWh.addActionListener(new java.awt.event.ActionListener() {
@@ -158,11 +153,11 @@ public class read_meter extends javax.swing.JFrame {
                 kWhKeyReleased(evt);
             }
         });
-        jPanel2.add(kWh, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 220, 40));
+        jPanel2.add(kWh, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 220, 40));
 
         jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel7.setText("Total");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, -1, -1));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 360, -1, -1));
 
         total.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         total.addActionListener(new java.awt.event.ActionListener() {
@@ -170,7 +165,7 @@ public class read_meter extends javax.swing.JFrame {
                 totalActionPerformed(evt);
             }
         });
-        jPanel2.add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 220, 40));
+        jPanel2.add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, 220, 40));
 
         jButton2.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jButton2.setText("CLEAR");
@@ -214,6 +209,13 @@ public class read_meter extends javax.swing.JFrame {
         jPanel4.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 240, 40));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 480));
+
+        customer_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customer_idActionPerformed(evt);
+            }
+        });
+        jPanel1.add(customer_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 100, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

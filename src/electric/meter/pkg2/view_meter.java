@@ -43,9 +43,10 @@ public class view_meter extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        customer_name = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         meter_reading = new javax.swing.JTable();
+        customer_id = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -89,14 +90,19 @@ public class view_meter extends javax.swing.JFrame {
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 50));
 
-        jComboBox1.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Customer" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+        customer_name.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        customer_name.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Customer" }));
+        customer_name.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                customer_nameItemStateChanged(evt);
             }
         });
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 210, 40));
+        customer_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customer_nameActionPerformed(evt);
+            }
+        });
+        jPanel2.add(customer_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 210, 40));
 
         meter_reading.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -127,6 +133,7 @@ public class view_meter extends javax.swing.JFrame {
         jScrollPane1.setViewportView(meter_reading);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 650, 360));
+        jPanel2.add(customer_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 60, 100, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 670, 480));
 
@@ -187,9 +194,9 @@ public class view_meter extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void customer_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customer_nameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_customer_nameActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
@@ -224,6 +231,10 @@ public class view_meter extends javax.swing.JFrame {
         conn=DBConnection.getConnection();
         view_reading();
     }//GEN-LAST:event_formWindowOpened
+
+    private void customer_nameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_customer_nameItemStateChanged
+        getCustomerID();
+    }//GEN-LAST:event_customer_nameItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -261,10 +272,11 @@ public class view_meter extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField customer_id;
+    private javax.swing.JComboBox<String> customer_name;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -281,7 +293,7 @@ public class view_meter extends javax.swing.JFrame {
         String sql = "SELECT DATE_FORMAT(mr.reading_date, '%M %d, %Y') AS formatted_date, " +
                      "c.customer_name, mr.consumption, mr.kWh, mr.total " +
                      "FROM meter_reading mr " +
-                     "JOIN customer c ON mr.customer_id = c.customer_id";
+                     "JOIN customer c ON mr.customer_id = c.customer_id ORDER BY reading_date DESC";
 
         pst = conn.prepareStatement(sql);
         ResultSet rs = pst.executeQuery();
@@ -302,6 +314,58 @@ public class view_meter extends javax.swing.JFrame {
 
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, ex);
+    }
+}
+    
+private void retrieve_customer_list() {
+    try {
+        customer_name.removeAllItems();  // clear items first
+
+        customer_name.addItem("Select Customer");  // <-- default option
+
+        String sql = "SELECT customer_name FROM customer";
+        PreparedStatement pst = conn.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            customer_name.addItem(rs.getString("customer_name"));
+        }
+
+        customer_name.setSelectedIndex(0);  // always show the default text
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e);
+    }
+}    
+    
+    private void getCustomerID() {
+
+    Object selected = customer_name.getSelectedItem();
+
+    // Prevent null error
+    if (selected == null) {
+        return;
+    }
+
+    String selectedName = selected.toString();
+
+    // If "Select Customer", clear the textfield and stop
+    if (selectedName.equals("Select Customer")) {
+        customer_id.setText("");
+        return;
+    }
+
+    try {
+        String sql = "SELECT customer_id FROM customer WHERE customer_name = ?";
+        PreparedStatement pst = conn.prepareStatement(sql);
+        pst.setString(1, selectedName);
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            customer_id.setText(rs.getString("customer_id"));
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e);
     }
 }
 
